@@ -1,0 +1,98 @@
+type Actor {
+  id: Int!
+  gender: String!
+  name: String!
+  cast(offset: Int! = 0, limit: Int! = 100): [Credit!]!
+}
+
+type Credit {
+  creditId: String!
+  castId: Int!
+  character: String!
+  order: Int!
+  actor: Actor!
+  movie: Movie!
+}
+
+type CrewCredit {
+  department: String!
+  creditId: String!
+  job: String!
+  person: CrewPerson!
+  movie: Movie!
+}
+
+type CrewPerson {
+  id: Int!
+  gender: String!
+  name: String!
+  crew(offset: Int! = 0, limit: Int! = 100): [CrewCredit!]!
+}
+
+type Genre {
+  id: Int!
+  name: String!
+  movies(offset: Int! = 0, limit: Int! = 100): [Movie!]!
+}
+
+type Keyword {
+  id: Int!
+  name: String!
+  movies(offset: Int! = 0, limit: Int! = 100): [Movie!]!
+}
+
+type Movie {
+  budget: Int!
+  homepage: String!
+  id: Int!
+  originalLanguage: String!
+  originalTitle: String!
+  overview: String!
+  popularity: Float!
+  releaseDate: String!
+  revenue: Int!
+  runtime: Int!
+  status: String!
+  tagline: String!
+  title: String!
+  voteAverage: Float!
+  voteCount: Int!
+  genres: [Genre!]!
+  keywords: [Keyword!]!
+  productionCompanies: [ProductionCompany!]!
+  productionCountries: [ProductionCountry!]!
+  spokenLanguages: [SpokenLanguage!]!
+  cast: [Credit!]!
+  crew: [CrewCredit!]!
+}
+
+type ProductionCompany {
+  id: Int!
+  name: String!
+  movies(offset: Int! = 0, limit: Int! = 100): [Movie!]!
+}
+
+type ProductionCountry {
+  iso31661: String!
+  name: String!
+  movies(offset: Int! = 0, limit: Int! = 100): [Movie!]!
+}
+
+type Query {
+  movies(title: String = null, id: Int = null, orderBy: String = null, descending: Boolean! = false, offset: Int! = 0, limit: Int! = 100): [Movie!]!
+  genres(name: String = null, id: Int = null): [Genre!]!
+  keywords(name: String = null, id: Int = null, offset: Int! = 0, limit: Int! = 100): [Keyword!]!
+  productionCompanies(name: String = null, id: Int = null, offset: Int! = 0, limit: Int! = 100): [ProductionCompany!]!
+  productionCountries(name: String = null, id: String = null, offset: Int! = 0, limit: Int! = 100): [ProductionCountry!]!
+  spokenLanguages(name: String = null, id: String = null): [SpokenLanguage!]!
+  cast(character: String = null, id: String = null, actor: String = null, offset: Int! = 0, limit: Int! = 100): [Credit!]!
+  actor(name: String = null, id: Int = null, gender: String = null, offset: Int! = 0, limit: Int! = 100): [Actor!]!
+  crew(department: String = null, job: String = null, id: String = null, person: String = null, offset: Int! = 0, limit: Int! = 100): [CrewCredit!]!
+  crewPerson(id: Int = null, name: String = null, gender: String = null, offset: Int! = 0, limit: Int! = 100): [CrewPerson!]!
+}
+
+type SpokenLanguage {
+  iso6391: String!
+  name: String!
+  movies(offset: Int! = 0, limit: Int! = 100): [Movie!]!
+}
